@@ -19,7 +19,16 @@ const registerSchema = (req, res, next) => {
     validateRequest(req, next, schema);
 }
 
+const updatePasswordSchema = (req, res, next) => {
+    const schema = Joi.object({
+		password: Joi.string().alphanum().min(6).max(50).empty('').required(),
+		newPassword: Joi.string().alphanum().min(6).max(50).empty('').required(),
+	});
+	validateRequest(req, next, schema);
+}
+
 export const validateRequestBody = {
     loginSchema,
-    registerSchema
+    registerSchema,
+    updatePasswordSchema
 }

@@ -2,8 +2,8 @@ import { Account, Permission, UserPermission, ITer, Company } from '../models';
 import bcrypt from 'bcryptjs';
 
 export default class AuthenticationService {
-    async getAccount(email) {
-        const account = await Account.findOne({ email, deleted_flag: false })
+    async getAccount(infoVerify) {
+        const account = await Account.findOne({ infoVerify, deleted_flag: false })
         return account;
     }
 
@@ -39,5 +39,19 @@ export default class AuthenticationService {
         }
 
         await Promise.all([...permissions]);
+    }
+
+    async updatePassword(email, password, newPassword) {
+        let user = await this.getAccount(email);
+        const match = await bcrypt.compare(password, user.password);
+
+        if(!match) {
+            return false;
+        }
+
+        const hash = await bcrypt.hash(newPassword, 12);
+
+        await Account.findOneAndUpdate(email, { password : hash }, { new: true });
+        return true;
     }
 }

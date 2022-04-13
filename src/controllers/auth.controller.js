@@ -101,10 +101,30 @@ const registerCompany = async (req, res, next) => {
     }
 }
 
+const updatePassword = async (req, res, next) => {
+    const { password, newPassword } = req.body;
+    const { email } = req.user;
+    try {
+        let user = await authService.getAccount(email);
+        if (!user) {
+            throw new HttpError('User not found', 400);
+        }
+        if (!(await authService.updatePassword(email, password, newPassword))) {
+            throw new HttpError('password is incorrect', 400);
+        }
+        res.status(200).json({
+            status: 200,
+            msg: 'Success'
+        });
+    } catch (error) {
+        next(error);
+    }
+}
 const authController={
     login,
     registerITer,
-    registerCompany
+    registerCompany,
+    updatePassword,
 }
 
 export default authController;
