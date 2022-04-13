@@ -85,7 +85,7 @@ const registerCompany = async (req, res, next) => {
     email = email.toLowerCase();
 
     try {
-        const user = await authService.getAccount({ email });
+        const user = await authService.getAccount(email);
         if (user) {
             throw new HttpError('The email is existed', 400);
         }

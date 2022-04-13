@@ -11,3 +11,7 @@ authRouter
 authRouter
     .route('/api/v1/auth/register-iter')
     .post(validateRequestBody.registerSchema, authController.registerITer);
+
+authRouter
+    .route('/api/v1/auth/register-company')
+    .post(validateRequestBody.registerSchema, authController.registerCompany);
