@@ -14,6 +14,10 @@ const AccountSchema = new Schema (
             type: String,
             required: true,
         },
+        deleted_flag: {
+            type: Boolean,
+            default: false,
+        }
     },
     { timestamps: true },
 );

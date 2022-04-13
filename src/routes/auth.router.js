@@ -4,4 +4,10 @@ import { validateRequestBody } from '../middlewares';
 
 export const authRouter = Router();
 
-authRouter.route('/api/v1/auth/login').post(validateRequestBody.loginSchema, authController.login);
+authRouter
+    .route('/api/v1/auth/login')
+    .post(validateRequestBody.loginSchema, authController.login);
+
+authRouter
+    .route('/api/v1/auth/register-iter')
+    .post(validateRequestBody.registerSchema, authController.registerITer);

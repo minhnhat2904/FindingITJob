@@ -3,7 +3,7 @@ module.exports = {
     // TODO write your migration here.
     // See https://github.com/seppevs/migrate-mongo/#creating-a-new-migration-script
     // Example:
-    await db.collection('account').updateOne({$set: {role: "iter"}});
+    await db.createCollection('account');
   },
 
   async down(db, client) {
@@ -12,3 +12,4 @@ module.exports = {
     // await db.collection('albums').updateOne({artist: 'The Beatles'}, {$set: {blacklisted: false}});
   }
 };
+

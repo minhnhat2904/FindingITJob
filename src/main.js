@@ -1,4 +1,5 @@
 import { HttpServer, envVariables, dbConnection } from "./configs";
+import { initAccountAdmin } from './utils';
 
 import { authRouter } from './routes';
 import bodyParser from 'body-parser';
@@ -17,5 +18,8 @@ const main = async () => {
 
     // api
     server.registerRouter(authRouter);
+
+    // init account admin
+    initAccountAdmin();
 }
 main();

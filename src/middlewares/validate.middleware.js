@@ -9,6 +9,17 @@ const loginSchema = (req, res, next) => {
     validateRequest(req, next, schema);
 }
 
+const registerSchema = (req, res, next) => {
+    const schema = Joi.object({
+        name: Joi.string().required(),
+        password: Joi.string().alphanum().required().min(6).max(50),
+        email: Joi.string().email().required(),
+    })
+
+    validateRequest(req, next, schema);
+}
+
 export const validateRequestBody = {
-    loginSchema
+    loginSchema,
+    registerSchema
 }
