@@ -7,5 +7,8 @@ export const envVariables = {
     nodeEnv: process.env.NODE_ENV || 'development',
     jwtSecret: process.env.JWT_SECRET || 'thisissecret',
     usernameAdmin: process.env.USERNAME_ADMIN || 'admin',
-    passwordAdmin: process.env.PASSWORD_ADMIN || '123456'
+    passwordAdmin: process.env.PASSWORD_ADMIN || '123456',
+    usernameEmail: process.env.USERNAME_EMAIL || '',
+    passwordEmail: process.env.PASSWORD_EMAIL || '',
+
 };

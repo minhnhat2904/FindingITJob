@@ -40,4 +40,18 @@ export default class AuthenticationService {
 
         await Promise.all([...permissions]);
     }
+
+    async updatePassword(email, password, newPassword) {
+        let user = await this.getAccount(email);
+        const match = await bcrypt.compare(password, user.password);
+
+        if(!match) {
+            return false;
+        }
+
+        const hash = await bcrypt.hash(newPassword, 12);
+
+        await Account.findOneAndUpdate(email, { password : hash }, { new: true });
+        return true;
+    }
 }
