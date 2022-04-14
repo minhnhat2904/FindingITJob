@@ -2,8 +2,8 @@ import { Account, Permission, UserPermission, ITer, Company } from '../models';
 import bcrypt from 'bcryptjs';
 
 export default class AuthenticationService {
-    async getAccount(infoVerify) {
-        const account = await Account.findOne({ infoVerify, deleted_flag: false })
+    async getAccount(email) {
+        const account = await Account.findOne({ email, deleted_flag: false })
         return account;
     }
 

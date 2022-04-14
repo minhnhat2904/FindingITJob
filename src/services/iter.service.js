@@ -13,4 +13,13 @@ export default class ITerService {
 			},
 		);
 	}
+
+	async update(_id, data) {
+		const iter = await this.getIter(_id);
+		if (!iter) {
+			return false;
+		}
+		await ITer.findOneAndUpdate({ accountId: _id }, data);
+		return true;
+	}
 }

@@ -43,10 +43,24 @@ const changeResetPassword = (req, res, next) => {
 	validateRequest(req, next, schema);
 };
 
+const updateInfoSchema = (req, res, next) => {
+	const schema = Joi.object({
+		name: Joi.string().required(),
+		address: Joi.string().empty(),
+		phone: Joi.string()
+			.empty()
+			.regex(/^(84|0[1-9])+([0-9]{8,20})$/)
+			.message(`phone incorrect format`),
+		image: Joi.string().empty(),
+	});
+	validateRequest(req, next, schema);
+};
+
 export const validateRequestBody = {
     loginSchema,
     registerSchema,
     updatePasswordSchema,
     requestResetPassword,
-    changeResetPassword
+    changeResetPassword,
+    updateInfoSchema
 }

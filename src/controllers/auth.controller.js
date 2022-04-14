@@ -205,6 +205,29 @@ const profile = async (req, res, next) => {
 	}
 };
 
+const updateProfile = async (req, res, next) => {
+	const { role, _id } = req.user;
+	let user = null;
+	if (role == 'company') {
+		user = await companyService.getCompany(_id);
+	} else if (role == 'iter') {
+		user = await iterService.getIter(_id);
+	}
+	if (!user) {
+        throw new HttpError('User not found', 400);
+    } 
+
+	if (role == 'company') {
+		await companyService.update(_id, req.body);
+	} else if (role == 'iter') {
+		await iterService.update(_id, req.body);
+	}
+	res.status(200).json({
+		status: 200,
+		msg: 'Success',
+	});
+};
+
 const authController={
     login,
     registerITer,
@@ -213,7 +236,8 @@ const authController={
     requestResetPassword,
     confirmCode,
     changePasswordReset,
-    profile
+    profile,
+    updateProfile
 }
 
 export default authController;

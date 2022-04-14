@@ -12,4 +12,16 @@ export default class CompanyService {
 			},
 		);
 	}
+
+	async update(_id, data) {
+		const company = await this.getCompany(_id);
+		if (!company) {
+			return false;
+		} 
+
+		await Company.findOneAndUpdate({ accountId: _id }, data);
+		return true;
+	}
+
+
 }

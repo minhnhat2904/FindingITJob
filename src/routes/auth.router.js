@@ -38,3 +38,6 @@ authRouter
     .route('/api/v1/auth/profile')
     .get(jwtMiddleware, authController.profile);
 
+authRouter
+	.route('/api/v1/auth/profile')
+	.patch(jwtMiddleware, validateRequestBody.updateInfoSchema, authController.updateProfile);
