@@ -1,9 +1,11 @@
-import { AuthThenticationService } from '../services';
+import { AuthThenticationService, CompanyService, ITerService } from '../services';
 import { HttpError, tokenEncode, generateOTP, sendEmail } from '../utils';
 import bcrypt from 'bcryptjs';
 import { Account, Company, ITer, CodeReset } from '../models';
 
 const authService = new AuthThenticationService();
+const companyService = new CompanyService();
+const iterService = new ITerService();
 
 const login = async (req, res, next) => {
     let { email, password } = req.body;
@@ -180,6 +182,29 @@ const changePasswordReset = async (req, res, next) => {
 	}
 };
 
+const profile = async (req, res, next) => {
+	const { role, _id } = req.user;
+	try {
+		let user = null;
+		if (role == 'company') {
+			user = await companyService.getCompany(_id);
+		} else if (role == 'iter') {
+			user = await iterService.getIter(_id);
+		}
+		if (!user) {
+            throw new HttpError('user not found', 400);
+        } 
+
+		res.status(200).json({
+			status: 200,
+			msg: 'Success',
+			user,
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
 const authController={
     login,
     registerITer,
@@ -187,7 +212,8 @@ const authController={
     updatePassword,
     requestResetPassword,
     confirmCode,
-    changePasswordReset
+    changePasswordReset,
+    profile
 }
 
 export default authController;
