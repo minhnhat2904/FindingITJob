@@ -1,7 +1,7 @@
 import { AuthThenticationService } from '../services';
-import { HttpError, tokenEncode } from '../utils';
+import { HttpError, tokenEncode, generateOTP, sendEmail } from '../utils';
 import bcrypt from 'bcryptjs';
-import { Company, ITer } from '../models';
+import { Account, Company, ITer, CodeReset } from '../models';
 
 const authService = new AuthThenticationService();
 
@@ -120,11 +120,74 @@ const updatePassword = async (req, res, next) => {
         next(error);
     }
 }
+
+const requestResetPassword = async (req, res, next) => {
+	let { email } = req.body;
+	try {
+		email = email.toLowerCase();
+		const user = await Account.findOne({ email, deleted_flag: false });
+		if (!user) {
+            throw new HttpError('Email does not exist in the system', 400);
+        }
+		const code = generateOTP();
+		await sendEmail(code, email);
+		await Promise.all([CodeReset.deleteMany({ email }), CodeReset.create({ email, code, accountId: user._id })]);
+		res.status(200).json({
+			status: 200,
+			msg: 'We sent code to your email, the code only lasts for 5 minutes',
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
+const confirmCode = async (req, res, next) => {
+    let { email, code } = req.body;
+	try {
+		email = email.toLowerCase();
+		const existCode = await CodeReset.findOne({ email, code });
+		if (!existCode) {
+            throw new HttpError('Your code is incorrect', 400);   
+        }
+		res.status(200).json({
+			status: 200,
+			msg: 'Success',
+		});
+	} catch (error) {
+		next(error);
+	}
+}
+
+const changePasswordReset = async (req, res, next) => {
+	let { email, code, password } = req.body;
+	try {
+		email = email.toLowerCase();
+		const isExistCode = await CodeReset.findOne({ email, code });
+		if (!isExistCode) {
+            throw new HttpError('Fail', 400);
+        }
+		const hash = await bcrypt.hash(password, 12);
+		await Promise.all([
+			Account.findByIdAndUpdate({ _id: isExistCode.accountId }, { password: hash }),
+			CodeReset.findByIdAndDelete({ _id: isExistCode._id }),
+		]);
+		res.status(200).json({
+			status: 200,
+			msg: 'Password has updated',
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
 const authController={
     login,
     registerITer,
     registerCompany,
     updatePassword,
+    requestResetPassword,
+    confirmCode,
+    changePasswordReset
 }
 
 export default authController;

@@ -21,3 +21,16 @@ authRouter
 authRouter
     .route('/api/v1/auth/update-password')
     .post(jwtMiddleware, validateRequestBody.updatePasswordSchema, authController.updatePassword);
+
+authRouter
+    .route('/api/v1/auth/reset-password')
+    .post(validateRequestBody.requestResetPassword, authController.requestResetPassword);
+
+authRouter
+    .route('/api/v1/auth/confirm-code')
+    .post(authController.confirmCode);
+
+authRouter
+	.route('/api/v1/auth/change-password')
+	.post(validateRequestBody.changeResetPassword, authController.changePasswordReset);
+

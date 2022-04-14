@@ -27,8 +27,26 @@ const updatePasswordSchema = (req, res, next) => {
 	validateRequest(req, next, schema);
 }
 
+const requestResetPassword = (req, res, next) => {
+	const schema = Joi.object({
+		email: Joi.string().email().required(),
+	});
+	validateRequest(req, next, schema);
+};
+
+const changeResetPassword = (req, res, next) => {
+	const schema = Joi.object({
+		email: Joi.string().email().required(),
+		code: Joi.string().required(),
+		password: Joi.string().alphanum().min(6).max(50).empty('').required(),
+	});
+	validateRequest(req, next, schema);
+};
+
 export const validateRequestBody = {
     loginSchema,
     registerSchema,
-    updatePasswordSchema
+    updatePasswordSchema,
+    requestResetPassword,
+    changeResetPassword
 }
