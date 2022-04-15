@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { validateRequest } from '../utils';
-
+/* auth */
 const loginSchema = (req, res, next) => {
     const schema = Joi.object({
         email: Joi.string().email().required(),
@@ -56,11 +56,23 @@ const updateInfoSchema = (req, res, next) => {
 	validateRequest(req, next, schema);
 };
 
+/* admin */
+const loginAdminSchema = (req, res, next) => {
+	const schema = Joi.object({
+		username: Joi.string().required(),
+		password: Joi.string().min(6).max(50).empty('').required(),
+	});
+	validateRequest(req, next, schema);
+};
+
+
+
 export const validateRequestBody = {
     loginSchema,
     registerSchema,
     updatePasswordSchema,
     requestResetPassword,
     changeResetPassword,
-    updateInfoSchema
+    updateInfoSchema,
+    loginAdminSchema
 }
