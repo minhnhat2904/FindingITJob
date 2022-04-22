@@ -42,4 +42,18 @@ const createCV = async (req, res, next) => {
 	}
 };
 
-export const cvController = { createCV };
+const getCVByIter = async (req, res, next) => {
+	const { _id } = req.user;
+	try {
+		const cv = await cvService.getCvByUser(_id);
+		res.status(200).json({
+			status: 200,
+			msg: 'Success',
+			cv,
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
+export const cvController = { createCV, getCVByIter };

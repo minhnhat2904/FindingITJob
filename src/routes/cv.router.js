@@ -11,3 +11,5 @@ export const cvRouter = Router();
 cvRouter
 	.route('/api/v1/cv')
 	.post(jwtMiddleware, checkPermission(ACTION_CODE.CREATE_CV), validateRequestBody.createCVSchema, cvController.createCV);
+
+cvRouter.route('/api/v1/cv/user').get(jwtMiddleware, cvController.getCVByIter);
