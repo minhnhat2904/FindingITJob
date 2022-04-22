@@ -15,6 +15,10 @@ const AdminSchema = new Schema(
             type: String,
             default: "admin",
         },
+        deleted_flag: {
+            type: Boolean,
+            default: false,
+        }
     },
     { timestamps: true }
 );

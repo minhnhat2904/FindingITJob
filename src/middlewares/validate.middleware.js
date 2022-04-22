@@ -65,6 +65,16 @@ const loginAdminSchema = (req, res, next) => {
 	validateRequest(req, next, schema);
 };
 
+const createModSchema = (req, res, next) => {
+	const schema = Joi.object({
+		username: Joi.string().required(),
+		password: Joi.string().min(6).max(50).empty('').required(),
+	});
+	validateRequest(req, next, schema);
+};
+
+
+/* post */
 
 
 export const validateRequestBody = {
@@ -74,5 +84,6 @@ export const validateRequestBody = {
     requestResetPassword,
     changeResetPassword,
     updateInfoSchema,
-    loginAdminSchema
+    loginAdminSchema,
+	createModSchema
 }

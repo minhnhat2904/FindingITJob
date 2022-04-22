@@ -15,11 +15,11 @@ company,Get company post,GET_COMPANY_POST,1
 company,Delete post,DELETE_POST,1
 company,Update post,UPDATE_POST,1
 company,Create a feedback,CREATE_FEEDBACK,1
-iter,Create new cv,CREATE_CV,1
-iter,Register receive email job,RECEIVE_MAIL,1
-iter,Apply job,APPLY_JOB,1
-iter,Create a feedback,CREATE_FEEDBACK,1
 moderator,Accept post,ACCEPT_POST,1
 moderator,Delete post,DELETE_POST,1
 moderator,Delete a feedback,DELETE_FEEDBACK,1
 moderator,Analysis,ANALYSIS,1
+iter,Create new cv,CREATE_CV,1
+iter,Register receive email job,RECEIVE_MAIL,1
+iter,Apply job,APPLY_JOB,1
+iter,Create a feedback,CREATE_FEEDBACK,1

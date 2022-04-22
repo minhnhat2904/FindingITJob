@@ -62,6 +62,7 @@ const initPermission = async () => {
                 log.info('read file csv success');
                 const permissions = results.map(permission => {
                     permission.check = parseInt(permission.check);
+                    console.log(permission);
                     Permission.create(permission);
                 })
                 await Promise.all(permissions);
