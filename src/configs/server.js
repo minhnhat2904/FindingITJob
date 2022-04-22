@@ -13,6 +13,14 @@ export class HttpServer {
         return this.app;
     }
 
+    registerMiddleware(middleware) {
+		middleware(this.app);
+	}
+
+    registerRouter(router) {
+        this.app.use(router);
+    }
+
     listen() {
         this.server.listen(this.port, () => {
             log.info(`Server is listen on port ${this.port}`);
