@@ -4,6 +4,8 @@ import { tokenEncode, verifyToken } from './token';
 import { initAccountAdmin } from './seed';
 import { generateOTP } from './generateOTP';
 import { sendEmail } from './sendMail';
+import { pagination } from './pagination';
+import { checkRoleAndPermision } from './checkPermission';
 
 export { 
     HttpError,
@@ -12,5 +14,7 @@ export {
     verifyToken,
     initAccountAdmin,
     generateOTP,
-    sendEmail
+    sendEmail,
+    pagination,
+    checkRoleAndPermision
 };
