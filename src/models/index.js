@@ -6,6 +6,7 @@ import { Admin } from './Admin.model';
 import { Company } from './Company.model';
 import { CodeReset } from './CodeReset.model';
 import { CV } from './CV.model';
+import { Follow } from './Follow.model';
 
 export { 
     Account,
@@ -15,5 +16,6 @@ export {
     Admin,
     Company,
     CodeReset,
-    CV
+    CV,
+    Follow
 };
