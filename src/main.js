@@ -1,7 +1,13 @@
 import { HttpServer, envVariables, dbConnection } from "./configs";
 import { initAccountAdmin } from './utils';
 
-import { authRouter, adminRouter, cvRouter, followRouter } from './routes';
+import {
+    authRouter,
+    adminRouter,
+    cvRouter,
+    followRouter,
+    permissionRouter
+} from './routes';
 import bodyParser from 'body-parser';
 
 const { port, mongoURI } = envVariables;
@@ -21,6 +27,7 @@ const main = async () => {
     server.registerRouter(adminRouter);
     server.registerRouter(cvRouter);
     server.registerRouter(followRouter);
+    server.registerRouter(permissionRouter);
 
     // init account admin
     initAccountAdmin();
