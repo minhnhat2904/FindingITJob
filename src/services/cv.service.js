@@ -23,4 +23,8 @@ export default class CVService {
 	async getCV(_id) {
 		return await CV.findById({ _id }, { createdAt: 0, updatedAt: 0, __v: 0 });
 	}
+
+	async update(iterId, data) {
+		return await CV.findOneAndUpdate({ iterId }, data);
+	}
 }

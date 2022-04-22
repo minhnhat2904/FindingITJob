@@ -74,4 +74,26 @@ const getCV = async (req, res, next) => {
 	}
 };
 
-export const cvController = { createCV, getCVByIter, getCV };
+const updateCV = async (req, res, next) => {
+	const { _id } = req.user;
+
+	try {
+		const { birthday } = req.body;
+		const date = new Date(birthday.split('/').reverse().join('/'));
+		if (date > new Date()) {
+			throw new HttpError('birthday cannot greater than now', 400);
+		}
+		if (!(await cvService.update(_id, req.body))) {
+			throw new HttpError('Cv not found', 400);
+		}
+
+		res.status(200).json({
+			status: 200,
+			msg: 'Update success',
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
+export const cvController = { createCV, getCVByIter, getCV, updateCV };
