@@ -9,7 +9,7 @@ export default class CVService {
 		await CV.create(data);
 	}
 
-	async getCvByUser(iterId) {
+	async getCVByUser(iterId) {
 		let [iter, cv] = await Promise.all([
 			iterService.getIter(iterId),
 			CV.findOne({ iterId }, { createdAt: 0, updatedAt: 0, __v: 0 }),
@@ -20,7 +20,7 @@ export default class CVService {
 		return { ...JSON.parse(JSON.stringify(cv)), receiveMail: _.get(iter, 'receiveMail') };
 	}
 
-	async getCv(_id) {
+	async getCV(_id) {
 		return await CV.findById({ _id }, { createdAt: 0, updatedAt: 0, __v: 0 });
 	}
 }

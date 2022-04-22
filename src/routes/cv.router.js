@@ -13,3 +13,5 @@ cvRouter
 	.post(jwtMiddleware, checkPermission(ACTION_CODE.CREATE_CV), validateRequestBody.createCVSchema, cvController.createCV);
 
 cvRouter.route('/api/v1/cv/user').get(jwtMiddleware, cvController.getCVByIter);
+
+cvRouter.route('/api/v1/cv/:id').get(jwtMiddleware, cvController.getCV);

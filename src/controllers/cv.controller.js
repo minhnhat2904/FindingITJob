@@ -1,3 +1,4 @@
+import mongo from 'mongoose';
 import { HttpError } from '../utils';
 import { CVService, ITerService } from '../services';
 import { CV } from '../models';
@@ -45,7 +46,7 @@ const createCV = async (req, res, next) => {
 const getCVByIter = async (req, res, next) => {
 	const { _id } = req.user;
 	try {
-		const cv = await cvService.getCvByUser(_id);
+		const cv = await cvService.getCVByUser(_id);
 		res.status(200).json({
 			status: 200,
 			msg: 'Success',
@@ -56,4 +57,21 @@ const getCVByIter = async (req, res, next) => {
 	}
 };
 
-export const cvController = { createCV, getCVByIter };
+const getCV = async (req, res, next) => {
+	const { id } = req.params;
+	try {
+		if (!mongo.Types.ObjectId.isValid(id)) {
+			throw new HttpError('id is invalid', 400);
+		}
+		const cv = await cvService.getCV(id);
+		res.status(200).json({
+			status: 200,
+			msg: 'Success',
+			cv,
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
+export const cvController = { createCV, getCVByIter, getCV };
