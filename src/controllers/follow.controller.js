@@ -21,6 +21,35 @@ const follow = async (req, res, next) => {
 	}
 };
 
+const getFollowing = async (req, res, next) => {
+	try {
+		const { _id } = req.user;
+		const following = await followerService.getFollowing(_id);
+		res.status(200).json({
+			status: 200,
+			msg: 'Success',
+			following,
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+const getFollowers = async (req, res, next) => {
+	try {
+		const { _id } = req.user;
+		const followers = await followerService.getFollowers(_id);
+		res.status(200).json({
+			status: 200,
+			msg: 'Success',
+			followers,
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
 export const followController = {
 	follow,
+    getFollowing,
+    getFollowers
 };
