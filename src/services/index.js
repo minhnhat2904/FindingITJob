@@ -4,6 +4,8 @@ import ITerService from './iter.service';
 import CVService from './cv.service';
 import { followerService } from './follow.service';
 import PermissionService from './permission.service';
+import PostService from "./post.service";
+import NotificationService from "./notification.service";
 
 export {
     AuthThenticationService,
@@ -11,5 +13,7 @@ export {
     ITerService,
     CVService,
     followerService,
-    PermissionService
+    PermissionService,
+    PostService,
+    NotificationService,
 }

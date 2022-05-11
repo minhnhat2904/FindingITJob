@@ -1,25 +1,76 @@
 import { ITer } from "../models";
 
 export default class ITerService {
-	async getIter(id) {
-		return await ITer.findOne(
-			{ accountId: id },
-			{
-				__v: 0,
-				createdAt: 0,
-				updatedAt: 0,
-				role: 0,
-				roleId: 0,
-			},
-		);
-	}
+  async getIter(id) {
+    return await ITer.findOne(
+      { accountId: id },
+      {
+        __v: 0,
+        createdAt: 0,
+        updatedAt: 0,
+        role: 0,
+        roleId: 0,
+      }
+    );
+  }
 
-	async update(_id, data) {
-		const iter = await this.getIter(_id);
-		if (!iter) {
-			return false;
-		}
-		await ITer.findOneAndUpdate({ accountId: _id }, data);
-		return true;
-	}
+  async update(_id, data) {
+    const iter = await this.getIter(_id);
+    if (!iter) {
+      return false;
+    }
+    await ITer.findOneAndUpdate({ accountId: _id }, data);
+    return true;
+  }
+
+  async getIterByIt(_id) {
+    return await ITer.findOne(
+      { _id },
+      {
+        __v: 0,
+        createdAt: 0,
+        updatedAt: 0,
+        role: 0,
+        roleId: 0,
+      }
+    );
+  }
+
+  async getIters(page, take) {
+    return await pagination(ITer, {}, page, take);
+  }
+
+  async getIterReceiveEmail() {
+    return await ITer.find(
+      { receiveMail: true },
+      {
+        __v: 0,
+        createdAt: 0,
+        updatedAt: 0,
+        role: 0,
+        roleId: 0,
+        gender: 0,
+        phone: 0,
+        address: 0,
+        birthday: 0,
+        image: 0,
+        receiveMail: 0,
+      }
+    );
+  }
+
+  async deleteIter(_id) {
+    const iter = await this.getIterByIt(_id);
+    if (!iter) return false;
+    await Promise.all([
+      ITer.findByIdAndDelete({ _id }),
+      Account.findByIdAndDelete({ _id: iter.accountId }),
+      UserPer.deleteMany({ userId: iter.accountId }),
+    ]);
+    return true;
+  }
+
+  async registerSendEmail(accountId, receiveMail) {
+    return await ITer.findOneAndUpdate({ accountId }, { receiveMail });
+  }
 }
