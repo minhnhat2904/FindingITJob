@@ -1,6 +1,8 @@
 import express from 'express';
 import http from 'http';
 import log from 'datalog';
+const swaggerUI = require('swagger-ui-express'),
+swaggerDocument = require('../../swagger.json');
 
 export class HttpServer {
     constructor(port) {
@@ -19,6 +21,10 @@ export class HttpServer {
 
     registerRouter(router) {
         this.app.use(router);
+    }
+
+    registerSwagger() {
+        this.app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
     }
 
     listen() {

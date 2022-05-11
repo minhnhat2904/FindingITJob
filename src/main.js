@@ -22,6 +22,9 @@ const main = async () => {
 
     dbConnection(mongoURI);
 
+    // swagger
+    server.registerSwagger();
+
     // api
     server.registerRouter(authRouter);
     server.registerRouter(adminRouter);

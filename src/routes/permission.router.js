@@ -15,3 +15,11 @@ permissionRouter
 permissionRouter
 	.route('/api/v1/users/:id/permissions')
 	.get(jwtMiddleware, checkPermission(ACTION_CODE.GET_USER_PERMISSIONS), permissionController.getUserPermission);
+
+permissionRouter
+	.route('/api/v1/permissions')
+	.put(jwtMiddleware, checkPermission(ACTION_CODE.UPDATE_PERMISSIONS), permissionController.updatePermission);
+
+permissionRouter
+	.route('/api/v1/users/:id/permissions')
+	.put(jwtMiddleware, checkPermission(ACTION_CODE.UPDATE_USER_PERMISSIONS), permissionController.updateUserPermission);

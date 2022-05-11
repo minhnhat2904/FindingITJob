@@ -33,7 +33,38 @@ const getUserPermission = async (req, res, next) => {
     }
 };
 
+const updatePermission = async (req, res, next) => {
+    try {
+        const { permissions, role, apply } = req.body;
+        await permissionService.updatePermisson(permissions, role, apply);
+        res.status(200).json({
+            status: 200,
+            msg: "Success",
+        });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
+
+const updateUserPermission = async (req, res, next) => {
+    const { id } = req.params; // id user
+    const { permissions } = req.body;
+    try {
+        await permissionService.updateUserPermisson(id, permissions);
+        res.status(200).json({
+            status: 200,
+            msg: "Success",
+        });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
+
 export const permissionController = {
     getPermissions,
-    getUserPermission
+    getUserPermission,
+    updatePermission,
+    updateUserPermission
 };
