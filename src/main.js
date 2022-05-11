@@ -11,6 +11,8 @@ import {
     postRouter,
 } from './routes';
 import bodyParser from 'body-parser';
+import log from 'datalog';
+
 
 const { port, mongoURI } = envVariables;
 
@@ -23,10 +25,12 @@ const main = async () => {
   server.listen();
 
   dbConnection(mongoURI);
-
+  log.info("n");
+  
   // swagger
   server.registerSwagger();
-
+  log.info("n2");
+  
   // api
   server.registerRouter(authRouter);
   server.registerRouter(adminRouter);
@@ -35,7 +39,9 @@ const main = async () => {
   server.registerRouter(permissionRouter);
   server.registerRouter(iterRouter);
   server.registerRouter(postRouter);
-
+  
+  log.info("n3");
   initAccountAdmin();
+  log.info("n4");
 };
 main();
