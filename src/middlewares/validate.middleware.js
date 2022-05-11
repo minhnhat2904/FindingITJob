@@ -118,9 +118,39 @@ const updateCVSchema = (req, res, next) => {
   validateRequest(req, next, schema);
 };
 
+
 const registerEmailSchema = (req, res, next) => {
   const schema = Joi.object({
     receive: Joi.boolean().required(),
+
+const createPostSchema = (req, res, next) => {
+  const schema = Joi.object({
+    skill: Joi.array()
+      .min(1)
+      .items(Joi.string())
+      .required()
+      .messages({ "array.min": `skill cannot be an empty field` }),
+    title: Joi.string().required(),
+    address: Joi.string().required(),
+    endTime: Joi.string().required(),
+    description: Joi.string().required(),
+    salary: Joi.string().required(),
+  });
+  validateRequest(req, next, schema);
+};
+
+const updatePostSchema = (req, res, next) => {
+  const schema = Joi.object({
+    skill: Joi.array()
+      .min(1)
+      .items(Joi.string())
+      .empty()
+      .messages({ "array.min": `skill cannot be an empty field` }),
+    title: Joi.string().empty(),
+    address: Joi.string().empty(),
+    endTime: Joi.string().empty(),
+    description: Joi.string().empty(),
+    salary: Joi.string().empty(),
   });
   validateRequest(req, next, schema);
 };
@@ -137,4 +167,6 @@ export const validateRequestBody = {
   createCVSchema,
   updateCVSchema,
   registerEmailSchema,
+  createPostSchema,
+  updatePostSchema,
 };
