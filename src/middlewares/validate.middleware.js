@@ -118,6 +118,11 @@ const updateCVSchema = (req, res, next) => {
   validateRequest(req, next, schema);
 };
 
+
+const registerEmailSchema = (req, res, next) => {
+  const schema = Joi.object({
+    receive: Joi.boolean().required(),
+
 const createPostSchema = (req, res, next) => {
   const schema = Joi.object({
     skill: Joi.array()
@@ -161,6 +166,7 @@ export const validateRequestBody = {
   createModSchema,
   createCVSchema,
   updateCVSchema,
+  registerEmailSchema,
   createPostSchema,
   updatePostSchema,
 };

@@ -6,6 +6,7 @@ import {
   adminRouter,
   cvRouter,
   followRouter,
+  iterRouter,
   postRouter,
 } from "./routes";
 import bodyParser from "body-parser";
@@ -27,6 +28,7 @@ const main = async () => {
   server.registerRouter(adminRouter);
   server.registerRouter(cvRouter);
   server.registerRouter(followRouter);
+  server.registerRouter(iterRouter);
   server.registerRouter(postRouter);
 
   // init account admin
