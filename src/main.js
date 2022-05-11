@@ -1,28 +1,35 @@
 import { HttpServer, envVariables, dbConnection } from "./configs";
-import { initAccountAdmin } from './utils';
+import { initAccountAdmin } from "./utils";
 
-import { authRouter, adminRouter, cvRouter, followRouter } from './routes';
-import bodyParser from 'body-parser';
+import {
+  authRouter,
+  adminRouter,
+  cvRouter,
+  followRouter,
+  postRouter,
+} from "./routes";
+import bodyParser from "body-parser";
 
 const { port, mongoURI } = envVariables;
 
 export let server;
 
 const main = async () => {
-    server = new HttpServer(port);
-    server.getApp().use(bodyParser.json());
-    server.getApp().use(bodyParser.urlencoded({ extended: true }));
-    server.listen();
+  server = new HttpServer(port);
+  server.getApp().use(bodyParser.json());
+  server.getApp().use(bodyParser.urlencoded({ extended: true }));
+  server.listen();
 
-    dbConnection(mongoURI);
+  dbConnection(mongoURI);
 
-    // api
-    server.registerRouter(authRouter);
-    server.registerRouter(adminRouter);
-    server.registerRouter(cvRouter);
-    server.registerRouter(followRouter);
+  // api
+  server.registerRouter(authRouter);
+  server.registerRouter(adminRouter);
+  server.registerRouter(cvRouter);
+  server.registerRouter(followRouter);
+  server.registerRouter(postRouter);
 
-    // init account admin
-    initAccountAdmin();
-}
+  // init account admin
+  initAccountAdmin();
+};
 main();
