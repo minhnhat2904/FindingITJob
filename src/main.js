@@ -36,7 +36,6 @@ const main = async () => {
   server.registerRouter(iterRouter);
   server.registerRouter(postRouter);
 
-  // init account admin
   initAccountAdmin();
 };
 main();

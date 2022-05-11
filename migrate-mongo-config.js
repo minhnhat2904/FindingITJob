@@ -1,9 +1,13 @@
 // In this file you can configure migrate-mongo
+import { envVariables } from "./configs";
+
+const { mongoURI } = envVariables;
+
 
 const config = {
   mongodb: {
     // TODO Change (or review) the url to your MongoDB:
-    url: "mongodb://localhost:27017",
+    url: mongoURI,
 
     // TODO Change this to your database name:
     databaseName: "finding_it_job_db",
