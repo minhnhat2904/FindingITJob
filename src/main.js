@@ -2,14 +2,15 @@ import { HttpServer, envVariables, dbConnection } from "./configs";
 import { initAccountAdmin } from "./utils";
 
 import {
-  authRouter,
-  adminRouter,
-  cvRouter,
-  followRouter,
-  iterRouter,
-  postRouter,
-} from "./routes";
-import bodyParser from "body-parser";
+    authRouter,
+    adminRouter,
+    cvRouter,
+    followRouter,
+    permissionRouter,
+    iterRouter,
+    postRouter,
+} from './routes';
+import bodyParser from 'body-parser';
 
 const { port, mongoURI } = envVariables;
 
@@ -23,11 +24,15 @@ const main = async () => {
 
   dbConnection(mongoURI);
 
+  // swagger
+  server.registerSwagger();
+
   // api
   server.registerRouter(authRouter);
   server.registerRouter(adminRouter);
   server.registerRouter(cvRouter);
   server.registerRouter(followRouter);
+  server.registerRouter(permissionRouter);
   server.registerRouter(iterRouter);
   server.registerRouter(postRouter);
 
