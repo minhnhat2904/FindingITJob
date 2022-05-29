@@ -120,8 +120,11 @@ const updateCVSchema = (req, res, next) => {
 
 
 const registerEmailSchema = (req, res, next) => {
-  const schema = Joi.object({
-    receive: Joi.boolean().required(),
+	const schema = Joi.object({
+		receive: Joi.boolean().required(),
+	});
+	validateRequest(req, next, schema);
+};
 
 const createPostSchema = (req, res, next) => {
   const schema = Joi.object({
@@ -153,7 +156,7 @@ const updatePostSchema = (req, res, next) => {
     salary: Joi.string().empty(),
   });
   validateRequest(req, next, schema);
-};
+}
 
 export const validateRequestBody = {
   loginSchema,
