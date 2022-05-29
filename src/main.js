@@ -25,11 +25,9 @@ const main = async () => {
   server.listen();
 
   dbConnection(mongoURI);
-  log.info("n");
   
   // swagger
   server.registerSwagger();
-  log.info("n2");
   
   // api
   server.registerRouter(authRouter);
@@ -40,8 +38,6 @@ const main = async () => {
   server.registerRouter(iterRouter);
   server.registerRouter(postRouter);
   
-  log.info("n3");
   initAccountAdmin();
-  log.info("n4");
 };
 main();

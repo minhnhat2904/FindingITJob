@@ -7,14 +7,11 @@ import path from 'path';
 import csv from 'csv-parser';
 
 export const initAccountAdmin = async () => {
-    log.info('1');
     try {
         const count = await Permission.countDocuments();
         if (count == 0) {
-            log.info('2');
             await initPermission();
         } else {
-            log.info('3');
             log.info('Permissions are already');
         }
 
