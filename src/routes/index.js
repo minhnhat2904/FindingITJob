@@ -10,6 +10,7 @@ import { feedbackRouter } from './feedback.router';
 import { feedbackRouter } from './feedback.router';
 import { analysisRouter } from './analysis.router';
 import { notificationRouter } from './notification.router';
+import { imageRouter } from './image.router';
 
 export { 
     authRouter,
@@ -22,5 +23,6 @@ export {
     companyRouter,
     feedbackRouter,
     analysisRouter,
-    notificationRouter
+    notificationRouter,
+    imageRouter,
 };
