@@ -10,5 +10,8 @@ export const envVariables = {
     passwordAdmin: process.env.PASSWORD_ADMIN || '123456',
     usernameEmail: process.env.USERNAME_EMAIL || '',
     passwordEmail: process.env.PASSWORD_EMAIL || '',
+    cloud_name: process.env.CLOUD_NAME || 'articlesgroup',
+	api_key: process.env.API_KEY_CLOUD || '',
+	api_secret: process.env.API_SECRET_CLOUD || '',
 
 };

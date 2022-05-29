@@ -9,6 +9,7 @@ import { companyController } from "./company.controller";
 import { feedbackController } from "./feedback.controller";
 import { analysisController } from './analysis.controller';
 import { notificationController } from './notification.controller';
+import { imageController } from './image.controller';
 
 export {
   authController,
@@ -21,5 +22,6 @@ export {
   companyController,
   feedbackController,
   analysisController,
-  notificationController
+  notificationController,
+  imageController
 };

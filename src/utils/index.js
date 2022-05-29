@@ -7,6 +7,8 @@ import { sendEmail } from "./sendMail";
 import { pagination } from "./pagination";
 import { checkRoleAndPermision } from "./checkPermission";
 import pusher from "./pusher";
+import { signFileUploadRequest } from './cloudinary';
+
 export {
   HttpError,
   validateRequest,
@@ -18,4 +20,5 @@ export {
   pagination,
   checkRoleAndPermision,
   pusher,
+  signFileUploadRequest
 };
