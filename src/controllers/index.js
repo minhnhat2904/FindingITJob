@@ -5,6 +5,7 @@ import { followController } from './follow.controller';
 import { permissionController } from './permission.controller';
 import { iterController } from "./iter.controller";
 import { postController } from "./post.controller";
+import { companyController } from "./company.controller";
 
 export {
   authController,
@@ -13,5 +14,6 @@ export {
   adminController,
   cvController,
   followController,
-  permissionController
+  permissionController,
+  companyController
 };
