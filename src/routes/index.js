@@ -9,6 +9,7 @@ import { companyRouter } from './company.router';
 import { feedbackRouter } from './feedback.router';
 import { feedbackRouter } from './feedback.router';
 import { analysisRouter } from './analysis.router';
+import { notificationRouter } from './notification.router';
 
 export { 
     authRouter,
@@ -20,5 +21,6 @@ export {
     postRouter,
     companyRouter,
     feedbackRouter,
-    analysisRouter
+    analysisRouter,
+    notificationRouter
 };
