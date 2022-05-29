@@ -10,6 +10,7 @@ import { CodeReset } from "./CodeReset.model";
 import { CV } from "./CV.model";
 import { Follow } from "./Follow.model";
 import { SavedPost } from "./SavedPost";
+import { Feedback } from "./Feedback.model";
 
 export {
   Account,
@@ -24,4 +25,5 @@ export {
   Follow,
   SavedPost,
   Notification,
+  Feedback
 };

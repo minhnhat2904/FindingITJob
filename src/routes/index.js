@@ -6,6 +6,7 @@ import { permissionRouter } from './permission.router';
 import { iterRouter } from "./iter.router";
 import { postRouter } from "./post.router";
 import { companyRouter } from './company.router';
+import { feedbackRouter } from './feedback.router';
 
 export { 
     authRouter,
@@ -15,5 +16,6 @@ export {
     permissionRouter,
     iterRouter,
     postRouter,
-    companyRouter
+    companyRouter,
+    feedbackRouter
 };
