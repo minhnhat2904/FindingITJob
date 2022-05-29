@@ -8,6 +8,7 @@ import { postController } from "./post.controller";
 import { companyController } from "./company.controller";
 import { feedbackController } from "./feedback.controller";
 import { analysisController } from './analysis.controller';
+import { notificationController } from './notification.controller';
 
 export {
   authController,
@@ -19,5 +20,6 @@ export {
   permissionController,
   companyController,
   feedbackController,
-  analysisController
+  analysisController,
+  notificationController
 };
