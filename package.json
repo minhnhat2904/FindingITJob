@@ -25,7 +25,10 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.10",
-    "nodemailer": "^6.7.3"
+    "nodemailer": "^6.7.3",
+    "pusher": "^5.1.0-beta",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.3.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",

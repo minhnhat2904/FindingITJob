@@ -1,0 +1,91 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Finding IT Job API",
+      "description": "API for backend finding IT Job",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Auth",
+        "description": "API for auth in the system"
+      }
+    ],
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+
+    "paths": {
+      "/api/v1/auth/register-iter": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Authentication ITer and Company in system",
+          "parameters": {
+            "name" : ["Auth"],
+            "description": "abc",
+            "in": "body",
+            "required" : "true",
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Register success"
+            },
+            "400": {
+              "description": "Wrong password"
+            }
+          }
+        }
+      }
+    },
+
+    "definitions": {
+      "User": {
+        "required": ["name", "_id", "companies"],
+        "properties": {
+          "_id": {
+            "type": "integer",
+            "uniqueItems": true
+          },
+          "isPublic": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "books": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "companies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Users": {
+        "type": "array",
+        "$ref": "#/definitions/User"
+      }
+    }
+  }
