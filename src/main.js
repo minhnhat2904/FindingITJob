@@ -19,6 +19,7 @@ import bodyParser from 'body-parser';
 
 
 const { port, mongoURI } = envVariables;
+import { defaultMiddleware } from './middlewares';
 
 export let server;
 
@@ -26,6 +27,7 @@ const main = async () => {
   server = new HttpServer(port);
   server.getApp().use(bodyParser.json());
   server.getApp().use(bodyParser.urlencoded({ extended: true }));
+  server.registerMiddleware(defaultMiddleware);
   server.listen();
 
   dbConnection(mongoURI);
