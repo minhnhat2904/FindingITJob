@@ -21,8 +21,11 @@ const analysisOfSkill = async (req, res, next) => {
 	const { option, year, month } = req.query;
 	try {
 		let data = [];
-		if (option == 'month') data = await analysisService.skillForMonth(month, year);
-		else if (option == 'year') data = await analysisService.skillForYear(year);
+		if (option == 'month') {
+			data = await analysisService.skillForMonth(month, year);
+		} else if (option == 'year') {
+			data = await analysisService.skillForYear(year);
+		}
 		res.status(200).json({
 			status: 200,
 			msg: 'Success',

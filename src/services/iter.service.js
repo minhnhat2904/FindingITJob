@@ -1,4 +1,5 @@
-import { ITer } from "../models";
+import { ITer, UserPermission, Account } from "../models";
+import { pagination } from "../utils";
 
 export default class ITerService {
   async getIter(id) {
@@ -65,7 +66,7 @@ export default class ITerService {
     await Promise.all([
       ITer.findByIdAndDelete({ _id }),
       Account.findByIdAndDelete({ _id: iter.accountId }),
-      UserPer.deleteMany({ userId: iter.accountId }),
+      UserPermission.deleteMany({ userId: iter.accountId }),
     ]);
     return true;
   }

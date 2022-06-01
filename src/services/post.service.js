@@ -23,18 +23,20 @@ export default class PostService {
     if (!query) {
       count = await Post.countDocuments({ status });
       numPages = Math.ceil(count / take);
-      if (page > numPages || page <= 0)
+      if (page > numPages || page <= 0) {
         return {
           currentPage: page,
           numPages,
           posts,
         };
+      }
 
       const skip = (page - 1) * take;
       posts = await Post.aggregate([
         {
           $match: {
             status,
+            deleted_flag: false
           },
         },
         {
@@ -66,7 +68,7 @@ export default class PostService {
           },
         },
       ])
-        .sort({ updatedAt: -1, deleted_flag: false })
+        .sort({ updatedAt: -1 })
         .skip(skip)
         .limit(take);
     } else {
@@ -173,7 +175,9 @@ export default class PostService {
   }
 
   async update(id, data) {
-    if (!(await this.getPost(id))) return false;
+    if (!(await this.getPost(id))) {
+      return false;
+    }
     await Post.findByIdAndUpdate({ _id: id }, data);
     return true;
   }
@@ -388,6 +392,7 @@ export default class PostService {
     const post = await Post.findById(postId);
     if (!post) return false;
     let listApply = post.apply || [];
+    console.log(listResponse);
     let listIter = listResponse.map((iter) => {
       return iterService.getIter(iter.iterId);
     });
@@ -396,31 +401,33 @@ export default class PostService {
       deleted_flag: false,
     });
     listIter = await Promise.all(listIter);
-
+    console.log(listIter);
+    
     const listResponsePromise = listResponse.map((item, index) => {
-      if (!listIter[index]) return null;
-      else {
+      if (!listIter[index]) {
+        return null;
+      } else {
         const index = listApply.findIndex((apply) => {
           return (
             JSON.stringify(apply.iterId) == JSON.stringify(item.iterId) &&
             apply.status == "pending"
-          );
-        });
-        if (index == -1) return null;
-        listApply[index].status =
-          item.status == "agree" ? "agreed" : "rejected";
-        let notify = {
-          title: `Response`,
-          type: constant.NOTIFICATIONS_TYPE.POST,
-          postId,
-          image: company.image,
-        };
-        notify.content =
-          item.status == "agree"
-            ? `${post.name} agree your apply, please wait an email to confirm`
-            : `${post.name} reject your apply`;
+            );
+          });
+          if (index == -1) return null;
+          listApply[index].status =
+            item.status == "agree" ? "agreed" : "rejected";
+          let notify = {
+            title: `Response`,
+            type: constant.NOTIFICATIONS_TYPE.POST,
+            postId,
+            image: company.image,
+          };
+          notify.content =
+            item.status == "agree"
+              ? `${post.name} agree your apply, please wait an email to confirm`
+              : `${post.name} reject your apply`;
 
-        return notification.createNotification(item.iterId, notify);
+          return notification.createNotification(item.iterId, notify);
       }
     });
     await Post.findByIdAndUpdate(postId, { apply: listApply });

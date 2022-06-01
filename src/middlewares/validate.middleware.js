@@ -158,6 +158,13 @@ const updatePostSchema = (req, res, next) => {
   validateRequest(req, next, schema);
 }
 
+const createFeedbackSchema = (req, res, next) => {
+	const schema = Joi.object({
+		content: Joi.string().required(),
+	});
+	validateRequest(req, next, schema);
+};
+
 export const validateRequestBody = {
   loginSchema,
   registerSchema,
@@ -172,4 +179,5 @@ export const validateRequestBody = {
   registerEmailSchema,
   createPostSchema,
   updatePostSchema,
+  createFeedbackSchema
 };

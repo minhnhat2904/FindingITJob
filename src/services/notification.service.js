@@ -46,11 +46,11 @@ export default class NotificationService {
     if (!account) return 0;
     if (account.role == "iter") {
       const iter = await ITer.findOne({ accountId: userId });
-      return iter.numberOfNotifications;
+      return iter.numberOfNotification;
     }
     if (account.role == "company") {
       const company = await Company.findOne({ accountId: userId });
-      return company.numberOfNotifications;
+      return company.numberOfNotification;
     }
   }
 

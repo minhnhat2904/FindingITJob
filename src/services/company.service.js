@@ -1,4 +1,4 @@
-import { Company } from '../models';
+import { Company, UserPermission, Account, Post } from '../models';
 import { pagination } from '../utils';
 export default class CompanyService {
 	async getCompany(_id) {
@@ -47,7 +47,7 @@ export default class CompanyService {
 		await Promise.all([
 			Company.findByIdAndDelete({ _id }),
 			Account.findByIdAndDelete({ _id: company.accountId }),
-			UserPer.deleteMany({ userId: company.accountId }),
+			UserPermission.deleteMany({ userId: company.accountId }),
 			Post.deleteMany({ accountId: company.accountId }),
 		]);
 		return true;

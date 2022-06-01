@@ -48,10 +48,13 @@ export default class AuthenticationService {
         if(!match) {
             return false;
         }
-
+        
         const hash = await bcrypt.hash(newPassword, 12);
-
-        await Account.findOneAndUpdate(email, { password : hash }, { new: true });
-        return true;
+        const success = await Account.findOneAndUpdate({email}, { password : hash }, { new: true });
+        console.log(success);
+        if(success) {
+            return true;
+        }
+        return false;
     }
 }

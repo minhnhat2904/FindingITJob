@@ -7,7 +7,6 @@ import { iterRouter } from "./iter.router";
 import { postRouter } from "./post.router";
 import { companyRouter } from './company.router';
 import { feedbackRouter } from './feedback.router';
-import { feedbackRouter } from './feedback.router';
 import { analysisRouter } from './analysis.router';
 import { notificationRouter } from './notification.router';
 import { imageRouter } from './image.router';

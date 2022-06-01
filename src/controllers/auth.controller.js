@@ -116,7 +116,7 @@ const updatePassword = async (req, res, next) => {
       throw new HttpError("User not found", 400);
     }
     if (!(await authService.updatePassword(email, password, newPassword))) {
-      throw new HttpError("password is incorrect", 400);
+      throw new HttpError("Password is incorrect", 400);
     }
     res.status(200).json({
       status: 200,

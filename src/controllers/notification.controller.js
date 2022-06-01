@@ -21,7 +21,7 @@ const numberOfNotifications = async (req, res, next) => {
 		res.status(200).json({
 			status: 200,
 			msg: 'Success',
-			numberOfNotifications,
+			numberOfNotifications: numberOfNotifications,
 		});
 	} catch (error) {
 		console.log(error);

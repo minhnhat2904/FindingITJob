@@ -9,9 +9,13 @@ import {
     permissionRouter,
     iterRouter,
     postRouter,
+    companyRouter,
+    feedbackRouter,
+    analysisRouter,
+    notificationRouter,
+    imageRouter
 } from './routes';
 import bodyParser from 'body-parser';
-import log from 'datalog';
 
 
 const { port, mongoURI } = envVariables;
@@ -37,6 +41,11 @@ const main = async () => {
   server.registerRouter(permissionRouter);
   server.registerRouter(iterRouter);
   server.registerRouter(postRouter);
+  server.registerRouter(companyRouter);
+  server.registerRouter(feedbackRouter);
+  server.registerRouter(analysisRouter);
+  server.registerRouter(notificationRouter);
+  server.registerRouter(imageRouter);
   
   initAccountAdmin();
 };

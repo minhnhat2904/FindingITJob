@@ -1,4 +1,4 @@
-import { Permission, UserPermission } from '../models';
+import { Permission, UserPermission, Account } from '../models';
 import _ from 'lodash';
 
 
@@ -17,16 +17,19 @@ export default class PermissionService {
 	}
 
 	async updatePermisson(permissions, role, apply) {
-		let updatePer = permissions.map((e) => {
+		let updatePer = permissions.map((permission) => {
 			return Permission.findOneAndUpdate(
-				{ _id: e._id, check: !e.check },
-				{ check: e.check }, // check thay doi state moi doi
+				{ _id: permission._id, check: !permission.check },
+				{ check: permission.check },
 			);
 		});
 		const [...changed] = await Promise.all(updatePer);
 		let usersRole = [];
-		if (role != 'moderator') usersRole = await Account.find({ role }, { password: 0 });
-		else usersRole = await Admin.find({ role }, { password: 0 });
+		if (role != 'moderator') {
+			usersRole = await Account.find({ role }, { password: 0 });
+		} else {
+			usersRole = await Admin.find({ role }, { password: 0 });
+		}
 		// no apply
 		if (apply === false) {
 			let addUserPers = [];
@@ -36,7 +39,7 @@ export default class PermissionService {
 						// false => true
 						// add permission
 						let addUserPer = usersRole.map((e) => {
-							return UserPer.create({
+							return UserPermission.create({
 								userId: e._id,
 								perId: item._id,
 								perName: item.perName,
@@ -48,13 +51,13 @@ export default class PermissionService {
 					} else {
 						// remove permission
 						// xoa user per neu false. true => false
-						let userPerDels = await UserPer.find(
+						let userPerDels = await UserPermission.find(
 							{
 								perId: item._id,
 							},
 							{ _id: 1 },
 						);
-						userPerDels = userPerDels.map((e) => UserPer.findByIdAndDelete({ _id: e._id }));
+						userPerDels = userPerDels.map((e) => UserPermission.findByIdAndDelete({ _id: e._id }));
 						addUserPers = [...addUserPers, ...userPerDels];
 					}
 				}
@@ -65,13 +68,13 @@ export default class PermissionService {
 			for (let item of changed) {
 				if (item) {
 					if (item.check == false) {
-						// flase => true
+						// false => true
 						// add permission
 						let addUserPer = usersRole.map((e) => {
-							return UserPer.create({
+							return UserPermission.create({
 								userId: e._id,
-								perId: item._id,
-								perName: item.perName,
+								permissionId: item._id,
+								permissionName: item.permissionName,
 								actionCode: item.actionCode,
 								check: true, // no apply
 							});
@@ -80,14 +83,13 @@ export default class PermissionService {
 					} else {
 						// remove permission
 						// xoa user per neu false. true => false
-						let userPerDels = await UserPer.find(
+						let userPerDels = await UserPermission.find(
 							{
-								perId: item._id,
+								permissionId: item._id,
 							},
 							{ _id: 1 },
 						);
-						// console.log(userPerDels);
-						userPerDels = userPerDels.map((e) => UserPer.findByIdAndDelete({ _id: e._id }));
+						userPerDels = userPerDels.map((e) => UserPermission.findByIdAndDelete({ _id: e._id }));
 						addUserPers = [...addUserPers, ...userPerDels];
 					}
 				}
@@ -97,8 +99,8 @@ export default class PermissionService {
 	}
 
 	async updateUserPermisson(userId, permissions) {
-		const newPermission = permissions.map((e) => {
-			return UserPer.findOneAndUpdate({ userId, _id: e._id, check: !e.check }, { check: e.check });
+		const newPermission = permissions.map((permission) => {
+			return UserPermission.findOneAndUpdate({ userId, permissionId: permission._id, check: !permission.check }, { check: permission.check });
 		});
 		await Promise.all(newPermission);
 	}
