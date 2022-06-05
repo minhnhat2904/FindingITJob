@@ -19,7 +19,7 @@ import bodyParser from 'body-parser';
 
 
 const { port, mongoURI } = envVariables;
-import { defaultMiddleware } from './middlewares';
+import { defaultMiddleware, handleError } from './middlewares';
 
 export let server;
 
@@ -50,5 +50,6 @@ const main = async () => {
   server.registerRouter(imageRouter);
   
   initAccountAdmin();
+  server.registerMiddleware(handleError);
 };
 main();
