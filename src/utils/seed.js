@@ -9,6 +9,7 @@ import csv from 'csv-parser';
 export const initAccountAdmin = async () => {
     try {
         const count = await Permission.countDocuments();
+        console.log(count);
         if (count == 0) {
             await initPermission();
         } else {

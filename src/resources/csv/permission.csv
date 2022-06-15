@@ -1,4 +1,4 @@
-role,permissionName,actionCode,check
+role,permisionName,actionCode,check
 admin,Create account moderator,CREATE_MOD,1
 admin,Accept a post,ACCEPT_POST,1
 admin,Delete a post,DELETE_POST,1
