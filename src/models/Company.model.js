@@ -26,7 +26,7 @@ const CompanySchema = new Schema(
         address: {
             type: String,
         },
-        recruitPost: {
+        recruitingPost: {
             type: Number,
             default: 0,
         },
