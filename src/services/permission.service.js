@@ -53,7 +53,7 @@ export default class PermissionService {
 						// xoa user per neu false. true => false
 						let userPerDels = await UserPermission.find(
 							{
-								perId: item._id,
+								permissionId: item._id,
 							},
 							{ _id: 1 },
 						);
