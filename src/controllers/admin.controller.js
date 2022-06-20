@@ -106,7 +106,7 @@ const deleteMod = async (req, res, next) => {
 			throw new HttpError(`Can't delete admin account`, 401);
 		}
 
-		await Promise.all([Admin.findByIdAndUpdate({ _id: id }, { deleted_flag: true }), UserPermission.deleteMany({ userId: mod._id })]);
+		await Promise.all([Admin.findByIdAndUpdate({ _id: id }), UserPermission.deleteMany({ userId: mod._id })]);
 		res.status(200).json({
 			status: 200,
 			msg: 'Success',
