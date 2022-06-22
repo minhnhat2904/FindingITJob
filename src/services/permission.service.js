@@ -1,4 +1,4 @@
-import { Permission, UserPermission, Account } from '../models';
+import { Permission, UserPermission, Account, Admin } from '../models';
 import _ from 'lodash';
 
 
