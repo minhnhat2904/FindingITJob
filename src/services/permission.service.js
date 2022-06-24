@@ -42,7 +42,7 @@ export default class PermissionService {
 							return UserPermission.create({
 								userId: e._id,
 								perId: item._id,
-								permissionName: item.permissionName,
+								permissionName: item.permisionName,
 								actionCode: item.actionCode,
 								check: false, // no apply
 							});
@@ -74,7 +74,7 @@ export default class PermissionService {
 							return UserPermission.create({
 								userId: e._id,
 								permissionId: item._id,
-								permissionName: item.permissionName,
+								permissionName: item.permisionName,
 								actionCode: item.actionCode,
 								check: true, // no apply
 							});
