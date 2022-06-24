@@ -16,7 +16,7 @@ export default class AuthenticationService {
             return UserPermission.create({
                 userId: account._id,
                 permissionId: permission._id,
-                permissionName: permission.permissionName,
+                permissionName: permission.permisionName,
                 actionCode: permission.actionCode,
                 check: true,
             });
