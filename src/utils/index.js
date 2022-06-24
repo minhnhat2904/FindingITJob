@@ -8,6 +8,7 @@ import { pagination } from "./pagination";
 import { checkRoleAndPermision } from "./checkPermission";
 import pusher from "./pusher";
 import { signFileUploadRequest } from './cloudinary';
+import { task } from './checkPostExpired';
 
 export {
   HttpError,
@@ -20,5 +21,6 @@ export {
   pagination,
   checkRoleAndPermision,
   pusher,
-  signFileUploadRequest
+  signFileUploadRequest,
+  task
 };

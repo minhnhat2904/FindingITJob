@@ -1,5 +1,5 @@
 import { HttpServer, envVariables, dbConnection } from "./configs";
-import { initAccountAdmin } from "./utils";
+import { initAccountAdmin, task } from "./utils";
 
 import {
     authRouter,
@@ -51,5 +51,6 @@ const main = async () => {
   
   initAccountAdmin();
   server.registerMiddleware(handleError);
+  task.start();
 };
 main();
