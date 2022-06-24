@@ -42,7 +42,7 @@ export default class PermissionService {
 							return UserPermission.create({
 								userId: e._id,
 								perId: item._id,
-								perName: item.perName,
+								permissionName: item.permissionName,
 								actionCode: item.actionCode,
 								check: false, // no apply
 							});
@@ -100,7 +100,7 @@ export default class PermissionService {
 
 	async updateUserPermisson(userId, permissions) {
 		const newPermission = permissions.map((permission) => {
-			return UserPermission.findOneAndUpdate({ userId, permissionId: permission._id, check: !permission.check }, { check: permission.check });
+			return UserPermission.findOneAndUpdate({ userId, _id: permission._id, check: !permission.check }, { check: permission.check });
 		});
 		await Promise.all(newPermission);
 	}
