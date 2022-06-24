@@ -1,5 +1,7 @@
 import { HttpServer, envVariables, dbConnection } from "./configs";
-import { initAccountAdmin, task } from "./utils";
+import { initAccountAdmin } from "./utils";
+import cron from 'node-cron';
+import { Post } from "../src/models";
 
 import {
     authRouter,
@@ -51,6 +53,22 @@ const main = async () => {
   
   initAccountAdmin();
   server.registerMiddleware(handleError);
+  const task = cron.schedule('0 0 */1 * *', async () => {
+    const posts = await Post.find();
+    for(const post of posts) {
+      let date = post.endTime.split('/');
+      const expiredDate = new Date(date[1] + "/" + date[0] + "/" + date[2]);
+      const now = new Date();
+      if(expiredDate < now) {
+        post.status = "DONE";
+        await post.save();
+      }
+    }
+  }, {
+    scheduled: true,
+    timezone: "Asia/Ho_Chi_Minh"
+  });
+
   task.start();
 };
 main();
